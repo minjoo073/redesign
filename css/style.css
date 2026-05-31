@@ -111,7 +111,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2.5rem 0;
+  padding: 4rem 0;
 }
 .section--light { background: var(--gray-50); }
 
@@ -167,12 +167,12 @@ ul { list-style: none; margin: 0; padding: 0; }
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   font-weight: 800;
   color: var(--navy);
-  margin: 0 0 1.25rem;
+  margin: 0 0 1.75rem;
 }
 .section__lead {
   text-align: center;
   color: var(--gray-500);
-  margin: 0 0 3rem;
+  margin: 0 0 3.5rem;
   font-size: 0.95rem;
 }
 
@@ -235,7 +235,7 @@ ul { list-style: none; margin: 0; padding: 0; }
   font-weight: 700;
 }
 
-/* ========== Reviews (driver carousel preview) ========== */
+/* ========== Reviews (4 side cards + phone center, auto-rotate) ========== */
 .drivers {
   display: flex;
   align-items: center;
@@ -250,6 +250,20 @@ ul { list-style: none; margin: 0; padding: 0; }
   box-shadow: 0 8px 24px rgba(20, 34, 77, 0.06);
   width: 190px;
   flex-shrink: 0;
+}
+
+/* Subtle cross-fade on all content during rotation */
+.driver-card > *,
+.phone__top,
+.phone__desc,
+.phone__details {
+  transition: opacity 0.4s ease;
+}
+.drivers.is-swapping .driver-card > *,
+.drivers.is-swapping .phone__top,
+.drivers.is-swapping .phone__desc,
+.drivers.is-swapping .phone__details {
+  opacity: 0.4;
 }
 .driver-card__avatar {
   width: 80px;
@@ -305,15 +319,17 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .phone__screen {
   position: absolute;
-  top: 8%;
-  left: 6.5%;
-  right: 6.5%;
-  bottom: 5%;
-  padding: 78px 28px 36px;
+  top: 2.5%;
+  left: 4.2%;
+  right: 4.2%;
+  bottom: 2.5%;
+  padding: 88px 28px 40px;
   overflow: hidden;
   z-index: 1;
   display: flex;
   flex-direction: column;
+  background: #fff;
+  border-radius: 42px;
 }
 .phone__top {
   display: flex;
@@ -371,12 +387,16 @@ ul { list-style: none; margin: 0; padding: 0; }
 }
 .phone__list li {
   display: grid;
-  grid-template-columns: 20px 68px 1fr;
+  grid-template-columns: 20px 58px 1fr;
   align-items: center;
-  gap: 0.625rem;
+  gap: 0.5rem;
   padding: 0.55rem 0;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   border-top: 1px solid var(--gray-100);
+}
+.phone__list .value {
+  word-break: keep-all;
+  line-height: 1.4;
 }
 .phone__list li:first-child { border-top: none; padding-top: 0.25rem; }
 .phone__list svg {
@@ -395,15 +415,14 @@ ul { list-style: none; margin: 0; padding: 0; }
   padding-top: 1.25rem;
 }
 .phone__dots span {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: #d1d5db;
+  transition: background 0.4s ease;
 }
 .phone__dots .active {
   background: var(--red);
-  width: 8px;
-  height: 8px;
 }
 
 /* ========== Fleet ========== */
