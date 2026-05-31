@@ -1,0 +1,8 @@
+.DS_Store
+node_modules/
+*.log
+.vscode/
+.idea/
+
+# 작업용 레퍼런스 (배포에 포함하지 않음)
+references/
