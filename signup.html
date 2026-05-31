@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | 부자관광</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header site-header--sub">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__brand">
+        <img src="assets/logo_img.png" alt="부자관광">
+      </a>
+      <nav class="nav">
+        <ul class="nav__menu">
+          <li><a href="about.html" class="nav__link">회사소개</a></li>
+          <li><a href="index.html#service" class="nav__link">서비스</a></li>
+          <li><a href="vehicles.html" class="nav__link">차량안내</a></li>
+          <li><a href="index.html#review" class="nav__link">고객후기</a></li>
+          <li><a href="contact.html" class="nav__link">문의하기</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="auth">
+    <div class="container">
+      <div class="auth-card auth-card--wide">
+        <a href="index.html" class="auth-card__brand">
+          <img src="assets/logo_img.png" alt="부자관광">
+        </a>
+        <h1 class="auth-card__title">회원가입</h1>
+        <p class="auth-card__lead">부자관광에 처음 오셨나요? 간단한 정보로 가입해주세요.</p>
+
+        <form id="signup-form" class="auth-form" novalidate>
+          <label class="form__field">
+            <span>이름</span>
+            <input type="text" name="name" placeholder="이름을 입력해주세요" required autocomplete="name">
+          </label>
+          <label class="form__field">
+            <span>이메일</span>
+            <input type="email" name="email" placeholder="example@email.com" required autocomplete="email">
+          </label>
+
+          <div class="auth-form__row">
+            <label class="form__field">
+              <span>비밀번호</span>
+              <input type="password" name="password" placeholder="영문·숫자 조합 8자 이상" required minlength="8" autocomplete="new-password">
+            </label>
+            <label class="form__field">
+              <span>비밀번호 확인</span>
+              <input type="password" name="password-confirm" placeholder="비밀번호를 한 번 더 입력" required minlength="8" autocomplete="new-password">
+            </label>
+          </div>
+
+          <label class="form__field">
+            <span>연락처</span>
+            <input type="tel" name="phone" placeholder="010-0000-0000" required autocomplete="tel">
+          </label>
+
+          <div class="auth-agree">
+            <label class="form__check">
+              <input type="checkbox" id="agree-all">
+              <span><strong>전체 약관에 동의합니다.</strong></span>
+            </label>
+            <div class="auth-agree__list">
+              <label class="form__check">
+                <input type="checkbox" name="agree-tos" required>
+                <span>이용약관 동의 <em>(필수)</em></span>
+                <a href="#" class="auth-agree__more">보기</a>
+              </label>
+              <label class="form__check">
+                <input type="checkbox" name="agree-privacy" required>
+                <span>개인정보 수집·이용 동의 <em>(필수)</em></span>
+                <a href="#" class="auth-agree__more">보기</a>
+              </label>
+              <label class="form__check">
+                <input type="checkbox" name="agree-marketing">
+                <span>마케팅 정보 수신 동의 <em>(선택)</em></span>
+                <a href="#" class="auth-agree__more">보기</a>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn--primary auth-form__submit">가입하기</button>
+          <p id="signup-status" class="form__status" aria-live="polite"></p>
+        </form>
+
+        <p class="auth-card__footer">
+          이미 계정이 있으신가요?
+          <a href="login.html" class="auth-card__link">로그인</a>
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer site-footer--mini">
+    <div class="container">
+      <ul class="site-footer__mini-links">
+        <li><a href="about.html">회사소개</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#"><strong>개인정보처리방침</strong></a></li>
+        <li><a href="#">자주 묻는 질문</a></li>
+        <li><a href="contact.html">고객센터</a></li>
+        <li><a href="#">사이트맵</a></li>
+      </ul>
+      <div class="site-footer__mini-main">
+        <img src="assets/footer_logo.png" alt="부자관광" class="site-footer__logo">
+        <div class="site-footer__mini-meta">
+          <p>(주)부자관광<span class="sep">·</span>대표 <strong>오기영</strong><span class="sep">·</span>사업자등록번호 123-45-67890</p>
+          <p>경기도 평택시 OO로 123, 4층<span class="sep">·</span>대표전화 <strong>1577-0000</strong><span class="sep">·</span>이메일 contact@bujatour.co.kr</p>
+          <p class="copyright">&copy; <span id="year"></span> Buja Tour. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

@@ -8,18 +8,7 @@
 </head>
 <body>
 
-  <div class="topbar">
-    <div class="topbar__inner">
-      <span class="topbar__phone">대표전화 1577-0000</span>
-      <ul class="topbar__menu">
-        <li><a href="#">로그인</a></li>
-        <li><a href="#">회원가입</a></li>
-        <li><a href="#">고객센터</a></li>
-      </ul>
-    </div>
-  </div>
-
-  <header class="site-header">
+  <header class="site-header site-header--sub">
     <div class="site-header__inner">
       <a href="index.html" class="site-header__brand">
         <img src="assets/logo_img.png" alt="부자관광">
@@ -28,7 +17,7 @@
         <ul class="nav__menu">
           <li><a href="about.html" class="nav__link active">회사소개</a></li>
           <li><a href="index.html#service" class="nav__link">서비스</a></li>
-          <li><a href="index.html#fleet" class="nav__link">차량안내</a></li>
+          <li><a href="vehicles.html" class="nav__link">차량안내</a></li>
           <li><a href="index.html#review" class="nav__link">고객후기</a></li>
           <li><a href="contact.html" class="nav__link">문의하기</a></li>
         </ul>
@@ -36,75 +25,111 @@
     </div>
   </header>
 
-  <main>
-    <section class="section">
-      <div class="container">
-        <p class="section__eyebrow">ABOUT US</p>
-        <h2 class="section__title">부자관광 소개</h2>
-        <p style="text-align:center; max-width:720px; margin:0 auto; color:var(--gray-500);">
-          부자관광은 오랜 경험과 신뢰를 바탕으로 품격 있는 이동 서비스를 제공합니다.
-          여기에 회사 연혁, 비전, 미션 등을 자유롭게 작성하세요.
-        </p>
-      </div>
-    </section>
-  </main>
+  <!-- About sub-nav (page-level tabs) -->
+  <nav class="sub-nav" data-about-tabs>
+    <div class="container sub-nav__inner">
+      <h1 class="sub-nav__title">회사소개</h1>
+      <ul class="sub-nav__tabs">
+        <li><a href="?p=greeting" class="sub-nav__tab active" data-panel="greeting">인사말</a></li>
+        <li><a href="?p=location" class="sub-nav__tab" data-panel="location">찾아오는 길</a></li>
+      </ul>
+    </div>
+  </nav>
 
-  <footer class="site-footer">
-    <div class="container site-footer__inner">
-      <div class="site-footer__brand">
-        <img src="assets/footer_logo.png" alt="부자관광" class="site-footer__logo">
-        <p class="site-footer__tagline">품격 있는 이동 서비스,<br>부자관광이 함께합니다.</p>
-        <div class="site-footer__social">
-          <a href="#" aria-label="블로그">B</a>
-          <a href="#" aria-label="인스타그램">I</a>
-          <a href="#" aria-label="유튜브">Y</a>
-          <a href="#" aria-label="카카오톡">K</a>
+  <main class="sub about-page">
+
+    <!-- Panel: 인사말 -->
+    <section class="about-panel" data-panel-content="greeting">
+      <div class="container">
+        <div class="about-panel__head">
+          <img src="assets/sub/about/sub_icon01.png" alt="" class="about-panel__icon">
+          <h2 class="about-panel__title">인사말</h2>
+        </div>
+
+        <div class="greeting">
+          <img src="assets/sub/about/sub_main1.png" alt="정직과 신뢰의 기업이 되겠습니다." class="greeting__hero">
+
+          <div class="greeting__body">
+            <p>저희 부자관광은 지난 28년 동안 평택을 중심으로 경기도 일원의 전세버스 및 여행업 분야에서 고객님들의 지속적인 관심과 사랑으로 부단히 새롭게 성장해 가고 있는 성실한 중견기업입니다.</p>
+
+            <p>업종의 특성에 맞추어 가지 않게 고객 한 분 한 분, 그리고 상품 카테고리도 매 단계 세분화하여 진정성 있는 서비스를 제공할 수 있도록 부자관광 임직원이 함께 노력하고 있습니다.</p>
+
+            <p>최고의 장비와 시설, 최선의 서비스로 무엇보다 신뢰를 받아왔으며 자체 경험을 바탕으로 안전 운행, 친절 서비스, 쾌적한 차내 환경을 모두 한 단계 끌어올리고 있습니다.</p>
+
+            <p>안전을 최우선시한 운영은 모든 행정과 운영에 있어 그 무엇과도 바꿀 수 없는 절대 가치이며, 보다 진보된 장비와 시설로 보다 더 노력하여 봉행할 수 있도록 노력하며, 모든 경험을 바탕으로 도전을 멈추지 않고 끊임없이 정관의 의무를 다하겠습니다.</p>
+
+            <p>앞으로도 정직한 부자관광에서 보낸 가족의 한 명령, 도전을 멈추지 않으며 모든 분들의 곁에 늘 지속할 수 있도록 가장 가까이에 있는 부자관광이 되겠습니다. 많은 관심과 사랑 부탁드립니다.</p>
+
+            <p class="greeting__sign">부자관광 대표 <strong>오기영</strong></p>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="site-footer__col">
-        <h4>바로가기</h4>
-        <ul>
-          <li><a href="index.html">홈</a></li>
-          <li><a href="about.html">회사소개</a></li>
-          <li><a href="index.html#service">서비스</a></li>
-          <li><a href="index.html#fleet">차량안내</a></li>
-          <li><a href="contact.html">문의하기</a></li>
-        </ul>
+    <!-- Panel: 찾아오는 길 -->
+    <section class="about-panel" data-panel-content="location" hidden>
+      <div class="container">
+        <div class="about-panel__head">
+          <img src="assets/sub/about/sub_icon02.png" alt="" class="about-panel__icon">
+          <h2 class="about-panel__title">찾아오는 길</h2>
+        </div>
+
+        <div class="location">
+          <div class="location__map">
+            <img src="assets/sub/about/sub_map.png" alt="부자관광 위치 지도">
+          </div>
+
+          <div class="location__info">
+            <ul class="location__list">
+              <li>
+                <span class="location__label">주소</span>
+                <span class="location__value">경기도 평택시 OO로 123, 4층 (부자관광 본사)</span>
+              </li>
+              <li>
+                <span class="location__label">대표전화</span>
+                <span class="location__value">1577-0000</span>
+              </li>
+              <li>
+                <span class="location__label">팩스</span>
+                <span class="location__value">031-000-0000</span>
+              </li>
+              <li>
+                <span class="location__label">이메일</span>
+                <span class="location__value">contact@bujatour.co.kr</span>
+              </li>
+              <li>
+                <span class="location__label">운영시간</span>
+                <span class="location__value">평일 09:00 - 18:00 (주말·공휴일 휴무)</span>
+              </li>
+              <li>
+                <span class="location__label">주차</span>
+                <span class="location__value">건물 내 방문객 주차장 이용 가능</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="site-footer__col">
-        <h4>고객지원</h4>
-        <ul>
-          <li><a href="#">자주 묻는 질문</a></li>
-          <li><a href="#">버스기사 모집</a></li>
-          <li><a href="#">법인고객 문의</a></li>
-          <li><a href="#">통근버스 신청</a></li>
-          <li><a href="#">제휴 문의</a></li>
-        </ul>
-      </div>
+  </main>
 
-      <div class="site-footer__col site-footer__col--info">
-        <h4>사업자 정보</h4>
-        <ul class="site-footer__info">
-          <li>대표 <strong>홍길동</strong></li>
-          <li>사업자등록번호 <strong>123-45-67890</strong></li>
-          <li>경기도 평택시 OO로 123, 4층</li>
-          <li>전화 <strong>1577-0000</strong> · 팩스 031-000-0000</li>
-          <li>이메일 contact@bujatour.co.kr</li>
-          <li>운영시간 평일 09:00 - 18:00 (주말·공휴일 휴무)</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="site-footer__bottom">
-      <div class="container site-footer__bottom-inner">
-        <p>&copy; <span id="year"></span> Buja Tour. All rights reserved.</p>
-        <ul class="site-footer__bottom-menu">
-          <li><a href="#">이용약관</a></li>
-          <li><a href="#"><strong>개인정보처리방침</strong></a></li>
-          <li><a href="#">사이트맵</a></li>
-        </ul>
+  <footer class="site-footer site-footer--mini">
+    <div class="container">
+      <ul class="site-footer__mini-links">
+        <li><a href="about.html">회사소개</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#"><strong>개인정보처리방침</strong></a></li>
+        <li><a href="#">자주 묻는 질문</a></li>
+        <li><a href="contact.html">고객센터</a></li>
+        <li><a href="#">사이트맵</a></li>
+      </ul>
+      <div class="site-footer__mini-main">
+        <img src="assets/footer_logo.png" alt="부자관광" class="site-footer__logo">
+        <div class="site-footer__mini-meta">
+          <p>(주)부자관광<span class="sep">·</span>대표 <strong>오기영</strong><span class="sep">·</span>사업자등록번호 123-45-67890</p>
+          <p>경기도 평택시 OO로 123, 4층<span class="sep">·</span>대표전화 <strong>1577-0000</strong><span class="sep">·</span>이메일 contact@bujatour.co.kr</p>
+          <p class="copyright">&copy; <span id="year"></span> Buja Tour. All rights reserved.</p>
+        </div>
       </div>
     </div>
   </footer>
