@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>문의하기 | 부자관광</title>
+  <title>로그인 | 부자관광</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,37 +17,51 @@
         <ul class="nav__menu">
           <li><a href="about.html" class="nav__link">회사소개</a></li>
           <li><a href="index.html#service" class="nav__link">서비스</a></li>
-          <li><a href="index.html#fleet" class="nav__link">차량안내</a></li>
+          <li><a href="vehicles.html" class="nav__link">차량안내</a></li>
           <li><a href="index.html#review" class="nav__link">고객후기</a></li>
-          <li><a href="contact.html" class="nav__link active">문의하기</a></li>
+          <li><a href="contact.html" class="nav__link">문의하기</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="section">
-      <div class="container">
-        <p class="section__eyebrow">CONTACT</p>
-        <h2 class="section__title">문의하기</h2>
-        <form id="contact-form" class="form" novalidate>
+  <main class="auth">
+    <div class="container">
+      <div class="auth-card">
+        <a href="index.html" class="auth-card__brand">
+          <img src="assets/logo_img.png" alt="부자관광">
+        </a>
+        <h1 class="auth-card__title">로그인</h1>
+        <p class="auth-card__lead">부자관광 회원이신가요? 로그인해주세요.</p>
+
+        <form id="login-form" class="auth-form" novalidate>
           <label class="form__field">
-            <span>이름</span>
-            <input type="text" name="name" required>
+            <span>이메일 또는 아이디</span>
+            <input type="text" name="username" placeholder="example@email.com" required autocomplete="username">
           </label>
           <label class="form__field">
-            <span>이메일</span>
-            <input type="email" name="email" required>
+            <span>비밀번호</span>
+            <input type="password" name="password" placeholder="비밀번호를 입력해주세요" required autocomplete="current-password">
           </label>
-          <label class="form__field">
-            <span>문의 내용</span>
-            <textarea name="message" rows="5" required></textarea>
-          </label>
-          <button type="submit" class="btn btn--primary">보내기</button>
-          <p id="form-status" class="form__status" aria-live="polite"></p>
+
+          <div class="auth-form__options">
+            <label class="form__check">
+              <input type="checkbox" name="remember">
+              <span>로그인 상태 유지</span>
+            </label>
+            <a href="#" class="auth-form__link">비밀번호 찾기</a>
+          </div>
+
+          <button type="submit" class="btn btn--primary auth-form__submit">로그인</button>
+          <p id="login-status" class="form__status" aria-live="polite"></p>
         </form>
+
+        <p class="auth-card__footer">
+          아직 회원이 아니신가요?
+          <a href="signup.html" class="auth-card__link">회원가입</a>
+        </p>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer class="site-footer site-footer--mini">

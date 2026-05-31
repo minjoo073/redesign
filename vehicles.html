@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>차량 안내 | 부자관광</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header site-header--sub">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__brand">
+        <img src="assets/logo_img.png" alt="부자관광">
+      </a>
+      <nav class="nav">
+        <ul class="nav__menu">
+          <li><a href="about.html" class="nav__link">회사소개</a></li>
+          <li><a href="index.html#service" class="nav__link">서비스</a></li>
+          <li><a href="vehicles.html" class="nav__link active">차량안내</a></li>
+          <li><a href="index.html#review" class="nav__link">고객후기</a></li>
+          <li><a href="contact.html" class="nav__link">문의하기</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="sub">
+    <!-- Page title -->
+    <section class="sub-title">
+      <div class="container">
+        <h1 class="sub-title__heading">차량 안내</h1>
+      </div>
+    </section>
+
+    <!-- Vehicle tabs + hero -->
+    <section class="vehicle-detail">
+      <div class="container">
+        <div class="v-tabs" data-tabs>
+          <button class="v-tab" data-tab="16">16인승 럭셔리 밴</button>
+          <button class="v-tab" data-tab="25">25인승 미니버스</button>
+          <button class="v-tab active" data-tab="32">32인승 우등버스</button>
+          <button class="v-tab" data-tab="45">45인승 대형버스</button>
+          <button class="v-tab" data-tab="pr">프리미엄 21인승</button>
+        </div>
+
+        <div class="v-hero">
+          <button class="v-hero__arrow v-hero__arrow--prev" data-arrow="prev" aria-label="이전 차량">‹</button>
+          <div class="v-hero__img">
+            <img src="assets/sub/car_32.png" alt="" data-hero-img>
+          </div>
+          <button class="v-hero__arrow v-hero__arrow--next" data-arrow="next" aria-label="다음 차량">›</button>
+        </div>
+
+        <div class="v-name">
+          <span class="v-name__quote">"</span>
+          <h2 class="v-name__text" data-vehicle-name>32인승 우등버스</h2>
+          <span class="v-name__quote">"</span>
+        </div>
+
+        <div class="v-seat">
+          <img src="assets/sub/detail_32.png" alt="좌석 배치도" data-seat-img>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interior + Specs -->
+    <section class="v-info section--light">
+      <div class="container">
+        <div class="v-info__grid">
+          <div class="v-gallery">
+            <h3 class="v-info__title">버스 내부 둘러보기</h3>
+            <div class="v-gallery__grid">
+              <div class="v-gallery__item"><span>버스 실내 1</span></div>
+              <div class="v-gallery__item"><span>버스 실내 2</span></div>
+              <div class="v-gallery__item"><span>버스 실내 3</span></div>
+            </div>
+          </div>
+
+          <div class="v-specs">
+            <h3 class="v-info__title">좌석 편의 사양</h3>
+            <ul class="v-specs__grid">
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon01.png" alt=""></div>
+                <span>안전벨트</span>
+              </li>
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon02.png" alt=""></div>
+                <span>온/냉장 박스</span>
+              </li>
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon03.png" alt=""></div>
+                <span>마이크</span>
+              </li>
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon04.png" alt=""></div>
+                <span>독서등</span>
+              </li>
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon05.png" alt=""></div>
+                <span>USB 충전</span>
+              </li>
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon06.png" alt=""></div>
+                <span>Wi-Fi</span>
+              </li>
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon07.png" alt=""></div>
+                <span>냉장고</span>
+              </li>
+              <li>
+                <div class="v-specs__icon"><img src="assets/sub/sub_icon08.png" alt=""></div>
+                <span>공기청정기</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Driver card (3-column: profile + info + reviews) -->
+    <section class="v-driver">
+      <div class="container">
+        <article class="dcp" data-driver-card>
+          <!-- Profile -->
+          <div class="dcp__profile">
+            <div class="dcp__photo-wrap">
+              <span class="dcp__ribbon">★ BEST</span>
+              <img alt="" class="dcp__photo" data-driver-photo>
+            </div>
+            <div class="dcp__info">
+              <h3 class="dcp__name" data-driver-name></h3>
+              <div class="dcp__rating" data-driver-rating></div>
+              <span class="dcp__badge" data-driver-badge></span>
+              <p class="dcp__desc" data-driver-desc></p>
+            </div>
+          </div>
+
+          <!-- Detail -->
+          <div class="dcp__detail">
+            <h4 class="dcp__col-title">기사님 정보</h4>
+            <ul class="dcp__detail-list">
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+                <span class="label">경력</span>
+                <strong class="value" data-driver-detail="career"></strong>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/><line x1="12" y1="3" x2="12" y2="9.5"/><line x1="3" y1="12" x2="9.5" y2="12"/><line x1="21" y1="12" x2="14.5" y2="12"/></svg>
+                <span class="label">무사고</span>
+                <strong class="value" data-driver-detail="accident"></strong>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C8 17, 5 13, 5 10 A7 7 0 0 1 19 10 C19 13, 16 17, 12 22 Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+                <span class="label">운행 지역</span>
+                <strong class="value" data-driver-detail="area"></strong>
+              </li>
+              <li>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21 C4 16, 7 14, 12 14 C17 14, 20 16, 20 21"/></svg>
+                <span class="label">전문 분야</span>
+                <strong class="value" data-driver-detail="field"></strong>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Reviews -->
+          <div class="dcp__reviews">
+            <div class="dcp__col-head">
+              <h4 class="dcp__col-title">이용객 후기</h4>
+              <a href="#" class="dcp__more">더보기 ›</a>
+            </div>
+            <ul class="dcp__review-list" data-driver-reviews></ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Online quote form -->
+    <section class="v-quote section--light">
+      <div class="container">
+        <h2 class="v-quote__title">온라인 견적 문의</h2>
+
+        <form class="v-quote__form" id="quote-form" novalidate>
+          <div class="v-quote__cols">
+            <div class="v-quote__left">
+              <label class="form__field">
+                <span>이름</span>
+                <input type="text" name="name" placeholder="이름을 입력해주세요" required>
+              </label>
+              <label class="form__field">
+                <span>연락처</span>
+                <input type="tel" name="phone" placeholder="010-0000-0000" required>
+              </label>
+              <label class="form__field">
+                <span>이메일</span>
+                <input type="email" name="email" placeholder="example@email.com">
+              </label>
+              <label class="form__field">
+                <span>운행 희망일</span>
+                <input type="date" name="date">
+              </label>
+              <label class="form__field">
+                <span>출발 / 도착지</span>
+                <input type="text" name="route" placeholder="예) 서울 강남 ↔ 부산 해운대">
+              </label>
+            </div>
+
+            <div class="v-quote__right">
+              <label class="form__field form__field--full">
+                <span>문의 내용</span>
+                <textarea name="message" rows="10" placeholder="이용 일정·인원·요청사항 등을 자유롭게 작성해주세요."></textarea>
+              </label>
+              <label class="form__check">
+                <input type="checkbox" required>
+                <span>개인정보 수집 및 이용에 동의합니다.</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="v-quote__actions">
+            <button type="submit" class="btn btn--primary">신청</button>
+            <button type="reset" class="btn btn--ghost">취소</button>
+          </div>
+          <p id="quote-status" class="form__status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer site-footer--mini">
+    <div class="container">
+      <ul class="site-footer__mini-links">
+        <li><a href="about.html">회사소개</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#"><strong>개인정보처리방침</strong></a></li>
+        <li><a href="#">자주 묻는 질문</a></li>
+        <li><a href="contact.html">고객센터</a></li>
+        <li><a href="#">사이트맵</a></li>
+      </ul>
+      <div class="site-footer__mini-main">
+        <img src="assets/footer_logo.png" alt="부자관광" class="site-footer__logo">
+        <div class="site-footer__mini-meta">
+          <p>(주)부자관광<span class="sep">·</span>대표 <strong>오기영</strong><span class="sep">·</span>사업자등록번호 123-45-67890</p>
+          <p>경기도 평택시 OO로 123, 4층<span class="sep">·</span>대표전화 <strong>1577-0000</strong><span class="sep">·</span>이메일 contact@bujatour.co.kr</p>
+          <p class="copyright">&copy; <span id="year"></span> Buja Tour. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
