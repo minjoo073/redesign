@@ -314,8 +314,8 @@ if (form) {
   const vehicles = {
     '16': {
       name: '16인승 럭셔리 밴',
-      car: 'car_16.png',
-      seat: 'detail_16.png',
+      car: 'car_16.webp',
+      seat: 'detail_16.webp',
       driver: {
         name: '김도현 기사님', photo: 'profile_1-2.png',
         stars: 4.8, reviewCount: 82,
@@ -330,8 +330,8 @@ if (form) {
     },
     '25': {
       name: '25인승 미니버스',
-      car: 'car_25.png',
-      seat: 'detail_25.png',
+      car: 'car_25.webp',
+      seat: 'detail_25.webp',
       driver: {
         name: '이상훈 기사님', photo: 'profile_2-2.png',
         stars: 4.7, reviewCount: 64,
@@ -346,8 +346,8 @@ if (form) {
     },
     '32': {
       name: '32인승 우등버스',
-      car: 'car_32.png',
-      seat: 'detail_32.png',
+      car: 'car_32.webp',
+      seat: 'detail_32.webp',
       driver: {
         name: '박정우 기사님', photo: 'profil_3-2.png',
         stars: 4.8, reviewCount: 98,
@@ -362,8 +362,8 @@ if (form) {
     },
     '45': {
       name: '45인승 대형버스',
-      car: 'car_45.png',
-      seat: 'detail_45.png',
+      car: 'car_45.webp',
+      seat: 'detail_45.webp',
       driver: {
         name: '최민석 기사님', photo: 'profil_4-2.png',
         stars: 4.9, reviewCount: 112,
@@ -378,8 +378,8 @@ if (form) {
     },
     'pr': {
       name: '프리미엄 21인승',
-      car: 'car_pr.png',
-      seat: 'detail_32-1.png',
+      car: 'car_pr.webp',
+      seat: 'detail_32-1.webp',
       driver: {
         name: '정한별 기사님', photo: 'profile_1-2.png',
         stars: 4.9, reviewCount: 73,
