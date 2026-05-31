@@ -19,6 +19,134 @@ if (form) {
   });
 }
 
+// Driver carousel (5 profiles rotating through the phone mockup)
+(function initDriverCarousel() {
+  const root = document.querySelector('[data-drivers]');
+  if (!root) return;
+
+  const drivers = [
+    {
+      name: '김도현 기사님',
+      avatar: 'profile_5-1.png',
+      rectAvatar: 'profil_4-2.png',
+      stars: 4.8,
+      reviews: 82,
+      exp: '10년 이상 경력',
+      desc: '안전 운행은 기본, 친절함은 덤!\n고객 만족도가 높은 베스트 기사님입니다.',
+      details: { career: '10년', accident: '10년', area: '서울, 경기권', field: '단체 관광·공항' },
+    },
+    {
+      name: '이상훈 기사님',
+      avatar: 'profile_2-1.png',
+      rectAvatar: 'profile_2-2.png',
+      stars: 4.7,
+      reviews: 64,
+      exp: '6년 이상 경력',
+      desc: '안전 운행은 기본, 친절함은 덤!\n고객 만족도가 높은 베스트 기사님입니다.',
+      details: { career: '6년', accident: '6년', area: '경기, 인천권', field: '학생 통학, 셔틀' },
+    },
+    {
+      name: '박정우 기사님',
+      avatar: 'profile_1-1.png',
+      rectAvatar: 'profil_3-2.png',
+      stars: 4.8,
+      reviews: 95,
+      exp: '8년 이상 경력',
+      desc: '안전 운행은 기본, 친절함은 덤!\n만족도가 높은 베스트 기사님입니다.',
+      details: { career: '8년', accident: '8년', area: '부산, 경남권', field: '장거리, 단체여행' },
+    },
+    {
+      name: '최민석 기사님',
+      avatar: 'frofile_4-1.png',
+      rectAvatar: 'profil_4-2.png',
+      stars: 4.9,
+      reviews: 112,
+      exp: '12년 이상 경력',
+      desc: '안전 운행은 기본, 친절함은 덤!\n고객 만족도가 높은 베스트 기사님입니다.',
+      details: { career: '12년', accident: '11년', area: '강원, 충청권', field: '장거리 단체 관광' },
+    },
+    {
+      name: '정한별 기사님',
+      avatar: 'profile_1-1.png',
+      rectAvatar: 'profile_1-2.png',
+      stars: 4.8,
+      reviews: 73,
+      exp: '9년 이상 경력',
+      desc: '안전 운행은 기본, 친절함은 덤!\n고객 만족도가 높은 베스트 기사님입니다.',
+      details: { career: '9년', accident: '9년', area: '수도권', field: '학생 통학, 단체' },
+    },
+  ];
+
+  const total = drivers.length;
+  const sideOffsets = [-2, -1, 1, 2]; // left-far, left, right, right-far
+  const phone = root.querySelector('[data-phone]');
+  const sideCards = Array.from(root.querySelectorAll('[data-side]'));
+  const dotsContainer = root.querySelector('[data-dots]');
+
+  dotsContainer.innerHTML = drivers.map(() => '<span></span>').join('');
+  const dots = Array.from(dotsContainer.children);
+
+  function ratingHTML(stars, reviews) {
+    return `<span class="star">★</span> <strong>${stars}</strong> <span class="count">(${reviews}건)</span>`;
+  }
+
+  function fillSideCard(card, d) {
+    card.querySelector('.driver-card__avatar').src = `assets/${d.avatar}`;
+    card.querySelector('.driver-card__name').textContent = d.name;
+    card.querySelector('.driver-card__rating').innerHTML = ratingHTML(d.stars, d.reviews);
+    card.querySelector('.driver-card__badge').textContent = d.exp;
+    card.querySelector('.driver-card__text').innerHTML = d.desc.replace(/\n/g, '<br>');
+  }
+
+  function fillPhone(d) {
+    phone.querySelector('.phone__avatar').src = `assets/${d.rectAvatar}`;
+    phone.querySelector('.phone__name').textContent = d.name;
+    phone.querySelector('.phone__rating').innerHTML = ratingHTML(d.stars, d.reviews);
+    phone.querySelector('.phone__badge').textContent = d.exp;
+    phone.querySelector('.phone__desc').innerHTML = d.desc.replace(/\n/g, '<br>');
+    Object.entries(d.details).forEach(([key, val]) => {
+      const el = phone.querySelector(`[data-detail="${key}"]`);
+      if (el) el.textContent = val;
+    });
+  }
+
+  function render(idx) {
+    fillPhone(drivers[idx]);
+    sideCards.forEach((card, i) => {
+      const offset = sideOffsets[i];
+      const dIdx = (idx + offset + total) % total;
+      fillSideCard(card, drivers[dIdx]);
+    });
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+  }
+
+  let activeIdx = 2;
+  render(activeIdx);
+
+  const interval = 3500;
+  const fadeDur = 400;
+  let timer = null;
+
+  function step() {
+    root.classList.add('is-swapping');
+    setTimeout(() => {
+      activeIdx = (activeIdx + 1) % total;
+      render(activeIdx);
+      root.classList.remove('is-swapping');
+    }, fadeDur);
+  }
+
+  function start() {
+    stop();
+    timer = setInterval(step, interval);
+  }
+  function stop() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+  start();
+})();
+
 // Real-story vertical marquee (infinite scroll)
 (function initStoryMarquee() {
   const track = document.querySelector('[data-story-track]');
