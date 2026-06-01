@@ -599,14 +599,24 @@ if (form) {
     faq:    { title: '자주 묻는 질문', lead: '자주 묻는 질문을 통해 궁금한 내용을 확인해보세요.' },
     driver: { title: '버스기사 모집',  lead: '운행 기사님을 모집합니다. 함께할 분의 지원을 기다립니다.' },
     b2b:    { title: '법인 / 통근버스 문의', lead: '정기 운행, 단체 행사, 법인 견적 등 대량 이용 문의를 남겨주세요.' },
+    qa:     { title: '1:1 문의', lead: '상담원에게 직접 문의를 남겨보세요. 평균 1영업일 이내 답변드려요.' },
   };
 
+  const sideItems = document.querySelectorAll('.inquiry-side__item');
+  // Sidebar key → top tab key it belongs under (qa stands alone; faq sits under FAQ tab)
+  const sidebarToTab = { faq: 'faq', qa: null };
+
   function activate(key) {
-    tabs.forEach(t => t.classList.toggle('is-active', t.dataset.tab === key));
+    // qa lives outside the top 3 tabs — deactivate all tabs in that case
+    tabs.forEach(t => t.classList.toggle('is-active', key !== 'qa' && t.dataset.tab === key));
     views.forEach(v => {
       const match = v.dataset.view === key;
       if (match) v.removeAttribute('hidden');
       else v.setAttribute('hidden', '');
+    });
+    sideItems.forEach(item => {
+      const sideKey = item.dataset.side;
+      item.classList.toggle('is-active', sideKey && sideKey === key);
     });
     if (heroTitle && heroCopy[key]) heroTitle.textContent = heroCopy[key].title;
     if (heroLead && heroCopy[key]) heroLead.textContent = heroCopy[key].lead;
@@ -614,6 +624,18 @@ if (form) {
 
   tabs.forEach(tab => {
     tab.addEventListener('click', () => activate(tab.dataset.tab));
+  });
+
+  // Sidebar items with data-side
+  sideItems.forEach(item => {
+    const key = item.dataset.side;
+    if (!key) return;
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      activate(key);
+      const main = document.querySelector('.inquiry-main');
+      if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
   });
 
   // FAQ accordion
@@ -626,19 +648,19 @@ if (form) {
     });
   });
 
-  // Sidebar inquiry button → switch to a contact-style view (use driver form by default? no — just scroll to 1:1 form)
+  // Side CTA button → open 1:1 inquiry view
   const ctaBtn = document.querySelector('.inquiry-side__cta-btn');
   if (ctaBtn) {
     ctaBtn.addEventListener('click', e => {
       e.preventDefault();
-      activate('b2b');
+      activate('qa');
       const main = document.querySelector('.inquiry-main');
       if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   }
 
   // Form submit demo
-  document.querySelectorAll('.inquiry-form').forEach(form => {
+  document.querySelectorAll('.inquiry-form, .qa-form').forEach(form => {
     form.addEventListener('submit', e => {
       e.preventDefault();
       const status = form.querySelector('[data-form-status]');
