@@ -146,10 +146,14 @@ if (form) {
   ];
 
   const total = drivers.length;
-  const sideOffsets = [-2, -1, 1, 2]; // left-far, left, right, right-far
-  const phone = root.querySelector('[data-phone]');
-  const sideCards = Array.from(root.querySelectorAll('[data-side]'));
+  const rail = root.querySelector('[data-rail]');
+  const phoneTrack = root.querySelector('[data-phone-track]');
   const dotsContainer = root.querySelector('[data-dots]');
+
+  // Number of side-card slots laid out on the rail. Odd so the middle slot
+  // sits dead-center behind the phone; the rest fan out to either side.
+  const RAIL_NODES = 9;
+  const CENTER = (RAIL_NODES - 1) / 2;
 
   dotsContainer.innerHTML = drivers.map(() => '<span></span>').join('');
   const dots = Array.from(dotsContainer.children);
@@ -158,50 +162,118 @@ if (form) {
     return `<span class="star">★</span> <strong>${stars}</strong> <span class="count">(${reviews}건)</span>`;
   }
 
-  function fillSideCard(card, d) {
-    card.querySelector('.driver-card__avatar').src = `assets/${d.avatar}`;
-    card.querySelector('.driver-card__name').textContent = d.name;
-    card.querySelector('.driver-card__rating').innerHTML = ratingHTML(d.stars, d.reviews);
-    card.querySelector('.driver-card__badge').textContent = d.exp;
-    card.querySelector('.driver-card__text').innerHTML = d.desc.replace(/\n/g, '<br>');
+  // Compact side card (no 기사님 정보 — that's exclusive to the phone)
+  function cardHTML(d) {
+    return `<article class="driver-card">
+      <img class="driver-card__avatar" src="assets/${d.avatar}" alt="">
+      <h3 class="driver-card__name">${d.name}</h3>
+      <div class="driver-card__rating">${ratingHTML(d.stars, d.reviews)}</div>
+      <span class="driver-card__badge">${d.exp}</span>
+      <p class="driver-card__text">${d.desc.replace(/\n/g, '<br>')}</p>
+    </article>`;
   }
 
-  function fillPhone(d) {
-    phone.querySelector('.phone__avatar').src = `assets/${d.rectAvatar}`;
-    phone.querySelector('.phone__name').textContent = d.name;
-    phone.querySelector('.phone__rating').innerHTML = ratingHTML(d.stars, d.reviews);
-    phone.querySelector('.phone__badge').textContent = d.exp;
-    phone.querySelector('.phone__desc').innerHTML = d.desc.replace(/\n/g, '<br>');
-    Object.entries(d.details).forEach(([key, val]) => {
-      const el = phone.querySelector(`[data-detail="${key}"]`);
-      if (el) el.textContent = val;
-    });
+  const DETAIL_ICONS = {
+    career: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>',
+    accident: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 L20 6 V12 C20 17, 16 20, 12 21 C8 20, 4 17, 4 12 V6 Z"/><polyline points="9 12 11 14 15 10"/></svg>',
+    area: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22 C8 17, 5 13, 5 10 A7 7 0 0 1 19 10 C19 13, 16 17, 12 22 Z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+    field: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20 C3 16, 5 14, 9 14 C13 14, 15 16, 15 20"/><circle cx="17" cy="9" r="2.5"/><path d="M15 19 C15 16.5, 17 15, 19.5 15"/></svg>',
+  };
+  const DETAIL_LABELS = { career: '경력', accident: '무사고', area: '운행 지역', field: '전문 분야' };
+
+  // Full phone page — bigger, with the 기사님 정보 block
+  function pageHTML(d) {
+    const rows = ['career', 'accident', 'area', 'field'].map((key) => `
+      <li>${DETAIL_ICONS[key]}
+        <span class="label">${DETAIL_LABELS[key]}</span>
+        <strong class="value">${d.details[key]}</strong>
+      </li>`).join('');
+    return `<div class="phone__page">
+      <div class="phone__top">
+        <img class="phone__avatar" src="assets/${d.rectAvatar}" alt="">
+        <div class="phone__info">
+          <h3 class="phone__name">${d.name}</h3>
+          <div class="phone__rating">${ratingHTML(d.stars, d.reviews)}</div>
+          <span class="phone__badge">${d.exp}</span>
+        </div>
+      </div>
+      <p class="phone__desc">${d.desc.replace(/\n/g, '<br>')}</p>
+      <div class="phone__details">
+        <h4 class="phone__details-title">기사님 정보</h4>
+        <ul class="phone__list">${rows}</ul>
+      </div>
+    </div>`;
   }
 
-  function render(idx) {
-    fillPhone(drivers[idx]);
-    sideCards.forEach((card, i) => {
-      const offset = sideOffsets[i];
-      const dIdx = (idx + offset + total) % total;
-      fillSideCard(card, drivers[dIdx]);
-    });
-    dots.forEach((dot, i) => dot.classList.toggle('active', i === idx));
+  const wrap = (n) => ((n % total) + total) % total;
+
+  let active = 0; // driver shown in the phone / center slot
+
+  function buildRail() {
+    rail.innerHTML = Array.from({ length: RAIL_NODES }, (_, i) =>
+      cardHTML(drivers[wrap(active + (i - CENTER))])
+    ).join('');
   }
 
-  let activeIdx = 2;
-  render(activeIdx);
+  // Phone holds 3 pages: prev / current / next. Baseline shows the middle one.
+  function buildPhone() {
+    phoneTrack.innerHTML =
+      pageHTML(drivers[wrap(active - 1)]) +
+      pageHTML(drivers[active]) +
+      pageHTML(drivers[wrap(active + 1)]);
+  }
+
+  function updateDots() {
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === active));
+  }
+
+  // Distance (px) the rail travels for one step = card width + gap.
+  function slotWidth() {
+    const card = rail.querySelector('.driver-card');
+    if (!card) return 0;
+    const gap = parseFloat(getComputedStyle(rail).columnGap) || 0;
+    return card.getBoundingClientRect().width + gap;
+  }
+
+  function reset() {
+    rail.style.transition = 'none';
+    phoneTrack.style.transition = 'none';
+    rail.style.transform = 'translateX(0)';
+    phoneTrack.style.transform = 'translateX(-100%)';
+  }
+
+  buildRail();
+  buildPhone();
+  reset();
+  updateDots();
 
   const interval = 3500;
-  const fadeDur = 400;
+  const slideDur = 600;
   let timer = null;
+  let animating = false;
 
   function step() {
-    root.classList.add('is-swapping');
+    if (animating) return;
+    animating = true;
+
+    const ease = `transform ${slideDur}ms cubic-bezier(0.45, 0, 0.15, 1)`;
+    rail.style.transition = ease;
+    phoneTrack.style.transition = ease;
+    // Slide everything one slot to the left: the next driver glides in from
+    // the right toward the center while the phone page advances in sync.
+    rail.style.transform = `translateX(${-slotWidth()}px)`;
+    phoneTrack.style.transform = 'translateX(-200%)';
+
     setTimeout(() => {
-      activeIdx = (activeIdx + 1) % total;
-      render(activeIdx);
-      root.classList.remove('is-swapping');
-    }, fadeDur);
+      active = wrap(active + 1);
+      buildRail();
+      buildPhone();
+      reset();
+      updateDots();
+      // force reflow so the no-transition reset is committed before resuming
+      void rail.offsetWidth;
+      animating = false;
+    }, slideDur);
   }
 
   function start() {
@@ -212,6 +284,8 @@ if (form) {
     if (timer) clearInterval(timer);
     timer = null;
   }
+
+  window.addEventListener('resize', reset);
   start();
 })();
 
@@ -395,9 +469,13 @@ if (form) {
   };
   const order = ['16', '25', '32', '45', 'pr'];
 
+  // Tab key → 둘러보기 gallery image number (프리미엄 21인승 uses the "21" set)
+  const galleryNum = { '16': '16', '25': '25', '32': '32', '45': '45', 'pr': '21' };
+
   const heroImg = document.querySelector('[data-hero-img]');
   const seatImg = document.querySelector('[data-seat-img]');
   const nameEl = document.querySelector('[data-vehicle-name]');
+  const galleryImgs = Array.from(document.querySelectorAll('[data-gallery-img]'));
   const hero = heroImg.closest('.v-hero');
   const tabs = Array.from(tabsRoot.querySelectorAll('[data-tab]'));
 
@@ -439,6 +517,12 @@ if (form) {
     seatImg.src = `assets/sub/${v.seat}`;
     nameEl.textContent = v.name;
     tabs.forEach((t) => t.classList.toggle('active', t.dataset.tab === key));
+
+    // 버스 둘러보기 gallery — 3 images per category (sub_{num}_01..03)
+    const num = galleryNum[key] || key;
+    galleryImgs.forEach((img, i) => {
+      img.src = `assets/reviews/sub_${num}_0${i + 1}.png`;
+    });
 
     // Driver
     const d = v.driver;
@@ -582,8 +666,56 @@ if (form) {
     `;
   }
 
-  // Render the list twice — animation translates by -50% so it loops seamlessly
+  // Render the list twice so there's always enough below the fold to fill the
+  // viewport as cards rotate up off the top.
   track.innerHTML = [...reviews, ...reviews].map(cardHTML).join('');
+
+  const interval = 1600;
+  const slideDur = 500;
+  let timer = null;
+  let animating = false;
+
+  function step() {
+    if (animating) return;
+    const first = track.firstElementChild;
+    if (!first) return;
+    animating = true;
+
+    const gap = parseFloat(getComputedStyle(track).rowGap) || 0;
+    const delta = first.getBoundingClientRect().height + gap;
+
+    track.style.transition = `transform ${slideDur}ms cubic-bezier(0.45, 0, 0.15, 1)`;
+    track.style.transform = `translateY(${-delta}px)`;
+
+    const done = () => {
+      track.removeEventListener('transitionend', done);
+      // Move the top card to the bottom and snap back without animating.
+      track.style.transition = 'none';
+      track.appendChild(first);
+      track.style.transform = 'translateY(0)';
+      void track.offsetWidth; // commit the reset before the next step
+      animating = false;
+    };
+    track.addEventListener('transitionend', done);
+  }
+
+  function start() {
+    stop();
+    timer = setInterval(step, interval);
+  }
+  function stop() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+
+  // Pause while the visitor is reading.
+  const marquee = track.closest('.story-marquee');
+  if (marquee) {
+    marquee.addEventListener('mouseenter', stop);
+    marquee.addEventListener('mouseleave', start);
+  }
+
+  start();
 })();
 
 // Inquiry page — category tab switching + FAQ accordion
@@ -627,6 +759,12 @@ if (form) {
   tabs.forEach(tab => {
     tab.addEventListener('click', () => activate(tab.dataset.tab));
   });
+
+  // Deep-link: open a specific tab via inquiry.html?tab=faq|driver|b2b|qa
+  const requestedTab = new URLSearchParams(location.search).get('tab');
+  if (requestedTab && heroCopy[requestedTab]) {
+    activate(requestedTab);
+  }
 
   // Sidebar items with data-side
   sideItems.forEach(item => {
@@ -681,5 +819,247 @@ if (form) {
   }
   applyHash();
   window.addEventListener('hashchange', applyHash);
+})();
+
+// Reviews page — filter / search / sort / pagination
+(function initReviewsPage() {
+  const grid = document.querySelector('[data-review-grid]');
+  if (!grid) return;
+
+  const pager = document.querySelector('[data-review-pagination]');
+  const emptyEl = document.querySelector('[data-review-empty]');
+  const searchEl = document.querySelector('[data-review-search]');
+  const sortEl = document.querySelector('[data-review-sort]');
+  const typeEl = document.querySelector('[data-review-type]');
+
+  // Vehicle pool — key drives the 차량 종류 filter, img is the card thumbnail.
+  const VEHICLES = [
+    { type: '45인승 우등버스',   key: '45인승',  img: 'assets/reviews/review_01.png' },
+    { type: '25인승 미니버스',   key: '25인승',  img: 'assets/reviews/review_03.png' },
+    { type: '16인승 프리미엄 밴', key: '16인승',  img: 'assets/reviews/review_05.png' },
+    { type: '32인승 중형버스',   key: '32인승',  img: 'assets/reviews/review_02.png' },
+    { type: '프리미엄 리무진버스', key: '프리미엄', img: 'assets/reviews/review_06.png' },
+    { type: '45인승 우등버스',   key: '45인승',  img: 'assets/reviews/review_04.png' },
+  ];
+  const STORIES = [
+    { purpose: '회사 워크숍', title: '편안하고 안전한 워크숍 이동이었어요!', rating: 5.0,
+      text: '회사 워크숍으로 이용했는데 기사님도 친절하시고 차량 상태도 너무 좋았습니다. 장거리 이동이었는데도 불편함 없이 편안하게 다녀왔어요.' },
+    { purpose: '가족 여행', title: '가족 여행에 딱 맞는 차량이었습니다', rating: 5.0,
+      text: '아이들과 부모님 모시고 1박 2일 다녀왔는데 좌석도 넓고 깨끗해서 모두 만족했어요. 운전도 부드러워 멀미 없이 편하게 이동했습니다.' },
+    { purpose: '학교 단체', title: '학생들 안전까지 세심하게 신경 써주셨어요', rating: 4.5,
+      text: '수학여행으로 이용했어요. 기사님이 학생 안전을 최우선으로 운행해주시고 시간 약속도 정확히 지켜주셔서 학부모로서 안심됐습니다.' },
+    { purpose: '골프 모임', title: '골프백 적재도 넉넉하고 쾌적했어요', rating: 5.0,
+      text: '동호회 골프 라운딩 이동으로 이용했습니다. 짐 공간이 넉넉하고 차내가 쾌적해서 이동 내내 편안했습니다. 다음에도 또 부탁드릴게요.' },
+    { purpose: '임원 의전', title: '의전용으로 손색없는 프리미엄 차량', rating: 5.0,
+      text: '본사 임원 의전으로 이용했는데 차량 컨디션과 기사님 응대 모두 최고였습니다. 깔끔한 정장 차림으로 맞아주셔서 인상 깊었습니다.' },
+    { purpose: '단체 행사', title: '대규모 단체 이동도 매끄럽게 진행됐어요', rating: 4.5,
+      text: '행사 참석 인원이 많았는데 배차부터 운행까지 체계적으로 진행해 주셔서 지연 없이 잘 마무리됐어요. 응대도 친절하셨습니다.' },
+  ];
+  const NAMES = ['김', '이', '박', '최', '정', '강', '조', '윤', '장', '임'];
+  const DATES = ['2026.05.31', '2026.05.28', '2026.05.22', '2026.05.18', '2026.05.11',
+                 '2026.05.03', '2026.04.27', '2026.04.20', '2026.04.12'];
+
+  // 18 reviews — array order is newest-first (used by the 최신순 sort).
+  const reviews = Array.from({ length: 18 }, (_, i) => {
+    const v = VEHICLES[i % VEHICLES.length];
+    const s = STORIES[i % STORIES.length];
+    return {
+      name: NAMES[i % NAMES.length] + 'OO 고객님',
+      vehicle: v.type, key: v.key, img: v.img,
+      purpose: s.purpose, title: s.title, text: s.text, rating: s.rating,
+      date: DATES[i % DATES.length],
+    };
+  });
+
+  const PER_PAGE = 6;
+  let page = 1;
+
+  const AVATAR = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c0-4.1 3.4-6.5 7.5-6.5s7.5 2.4 7.5 6.5z"/></svg>';
+
+  function starsHTML(rating) {
+    const full = Math.round(rating);
+    return '★'.repeat(full) + '☆'.repeat(5 - full);
+  }
+
+  function cardHTML(rv) {
+    return `<article class="rv-card">
+      <div class="rv-card__head">
+        <span class="rv-card__avatar">${AVATAR}</span>
+        <div class="rv-card__who">
+          <h3 class="rv-card__name">${rv.name}</h3>
+          <p class="rv-card__meta">${rv.vehicle} <span class="rv-card__sep">|</span> ${rv.purpose}</p>
+        </div>
+        <div class="rv-card__rating"><span class="rv-card__stars">${starsHTML(rv.rating)}</span> ${rv.rating.toFixed(1)}</div>
+      </div>
+      <div class="rv-card__body">
+        <h4 class="rv-card__title">${rv.title}</h4>
+        <p class="rv-card__text">${rv.text}</p>
+      </div>
+      <div class="rv-card__media"><img class="rv-card__img" src="${rv.img}" alt="${rv.vehicle}" loading="lazy"></div>
+    </article>`;
+  }
+
+  function getFiltered() {
+    const q = (searchEl?.value || '').trim().toLowerCase();
+    const type = typeEl?.value || '';
+    let list = reviews.filter((rv) => {
+      const hay = `${rv.name} ${rv.vehicle} ${rv.purpose} ${rv.title} ${rv.text}`.toLowerCase();
+      return (!q || hay.includes(q)) && (!type || rv.key === type);
+    });
+    if (sortEl?.value === 'rating') {
+      // stable sort keeps newest-first order within equal ratings
+      list = list.map((rv, i) => [rv, i]).sort((a, b) => b[0].rating - a[0].rating || a[1] - b[1]).map((x) => x[0]);
+    }
+    return list;
+  }
+
+  function render() {
+    const list = getFiltered();
+    const pages = Math.max(1, Math.ceil(list.length / PER_PAGE));
+    if (page > pages) page = pages;
+
+    const slice = list.slice((page - 1) * PER_PAGE, page * PER_PAGE);
+    grid.innerHTML = slice.map(cardHTML).join('');
+    grid.hidden = list.length === 0;
+    if (emptyEl) emptyEl.hidden = list.length !== 0;
+
+    pager.innerHTML = '';
+    pager.hidden = pages <= 1;
+    for (let i = 1; i <= pages; i++) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = i;
+      if (i === page) btn.classList.add('is-active');
+      btn.addEventListener('click', () => {
+        page = i;
+        render();
+        const top = grid.getBoundingClientRect().top + window.scrollY - 110;
+        window.scrollTo({ top, behavior: 'smooth' });
+      });
+      pager.appendChild(btn);
+    }
+  }
+
+  [searchEl, sortEl, typeEl].forEach((el) => {
+    if (el) el.addEventListener('input', () => { page = 1; render(); });
+  });
+
+  render();
+})();
+
+// Review write page — star rating, char counter, date fields, photo upload
+(function initReviewWriteForm() {
+  const form = document.getElementById('review-write-form');
+  if (!form) return;
+
+  // Text ⇄ date toggle so the Korean placeholder shows while empty.
+  form.querySelectorAll('.rw-date').forEach((inp) => {
+    inp.addEventListener('focus', () => {
+      inp.type = 'date';
+      if (inp.showPicker) { try { inp.showPicker(); } catch (e) { /* ignore */ } }
+    });
+    inp.addEventListener('blur', () => { if (!inp.value) inp.type = 'text'; });
+  });
+
+  // Star rating
+  const starWrap = form.querySelector('[data-stars]');
+  const ratingInput = form.querySelector('[name="rating"]');
+  const stars = Array.from(starWrap.querySelectorAll('button'));
+  let rating = 0;
+  const paint = (n) => stars.forEach((s, i) => s.classList.toggle('is-on', i < n));
+  stars.forEach((s, i) => {
+    s.addEventListener('mouseenter', () => paint(i + 1));
+    s.addEventListener('click', () => {
+      rating = i + 1;
+      ratingInput.value = rating;
+      paint(rating);
+      starWrap.classList.remove('is-invalid');
+    });
+  });
+  starWrap.addEventListener('mouseleave', () => paint(rating));
+
+  // Character counter
+  const textarea = form.querySelector('textarea');
+  const counter = form.querySelector('[data-count]');
+  const maxLen = textarea.getAttribute('maxlength') || 1000;
+  textarea.addEventListener('input', () => {
+    counter.textContent = `${textarea.value.length} / ${maxLen}`;
+  });
+
+  // Photo upload (click + drag/drop, with previews)
+  const zone = form.querySelector('[data-upload-zone]');
+  const fileInput = form.querySelector('[data-upload]');
+  const preview = form.querySelector('[data-preview]');
+  const MAX_FILES = 5;
+  const MAX_SIZE = 10 * 1024 * 1024;
+  let files = [];
+
+  function renderPreview() {
+    preview.innerHTML = '';
+    files.forEach((file, idx) => {
+      const url = URL.createObjectURL(file);
+      const thumb = document.createElement('div');
+      thumb.className = 'rw-thumb';
+      thumb.innerHTML = `<img src="${url}" alt=""><button type="button" aria-label="삭제">×</button>`;
+      thumb.querySelector('button').addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        files.splice(idx, 1);
+        renderPreview();
+      });
+      preview.appendChild(thumb);
+    });
+  }
+  function addFiles(list) {
+    for (const file of list) {
+      if (files.length >= MAX_FILES) { alert('사진은 최대 5장까지 첨부할 수 있습니다.'); break; }
+      if (!/^image\/(png|jpeg)$/.test(file.type)) continue;
+      if (file.size > MAX_SIZE) { alert(`${file.name} 파일이 10MB를 초과합니다.`); continue; }
+      files.push(file);
+    }
+    renderPreview();
+  }
+  fileInput.addEventListener('change', () => { addFiles(fileInput.files); fileInput.value = ''; });
+  ['dragenter', 'dragover'].forEach((ev) => zone.addEventListener(ev, (e) => {
+    e.preventDefault();
+    zone.classList.add('is-drag');
+  }));
+  ['dragleave', 'dragend', 'drop'].forEach((ev) => zone.addEventListener(ev, () => {
+    zone.classList.remove('is-drag');
+  }));
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
+  });
+
+  // Submit (demo — validates required fields incl. rating)
+  const status = form.querySelector('[data-status]');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let ok = true;
+    form.querySelectorAll('[required]').forEach((el) => {
+      const invalid = !el.value.trim();
+      el.classList.toggle('is-invalid', invalid);
+      if (invalid) ok = false;
+    });
+    if (!rating) { starWrap.classList.add('is-invalid'); ok = false; }
+
+    status.hidden = false;
+    if (!ok) {
+      status.textContent = '필수 항목(*)을 모두 입력해주세요.';
+      status.style.color = 'var(--red)';
+      return;
+    }
+    status.textContent = '후기가 등록되었습니다. 관리자 검토 후 공개됩니다. 감사합니다!';
+    status.style.color = '#2c52d6';
+    form.reset();
+    files = [];
+    renderPreview();
+    rating = 0;
+    paint(0);
+    counter.textContent = `0 / ${maxLen}`;
+    form.querySelectorAll('.rw-date').forEach((i) => { i.type = 'text'; });
+    window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+  });
 })();
 

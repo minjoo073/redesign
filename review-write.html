@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>후기 작성 | 부자관광</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Top utility bar -->
+  <div class="topbar">
+    <div class="topbar__inner">
+      <span class="topbar__phone">대표전화 1577-0000</span>
+      <ul class="topbar__menu">
+        <li><a href="login.html">로그인</a></li>
+        <li><a href="signup.html">회원가입</a></li>
+        <li><a href="inquiry.html#qa">고객센터</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="site-header__inner">
+      <a href="index.html" class="site-header__brand">
+        <img src="assets/logo_img.png" alt="부자관광">
+      </a>
+      <nav class="nav">
+        <ul class="nav__menu">
+          <li><a href="about.html" class="nav__link">회사소개</a></li>
+          <li><a href="vehicles.html" class="nav__link">차량안내</a></li>
+          <li><a href="reviews.html" class="nav__link active">고객후기</a></li>
+          <li><a href="inquiry.html" class="nav__link">문의하기</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="sub">
+    <!-- Hero banner (same as 고객 후기) -->
+    <section class="rv-hero">
+      <img class="rv-hero__img" src="assets/inquiry/hero_img.webp" alt="">
+      <div class="container rv-hero__inner">
+        <div class="rv-hero__text">
+          <h1 class="rv-hero__title">고객 후기</h1>
+          <p class="rv-hero__lead">실제 고객님들의 솔직한 이용 후기를 만나보세요.<br>차량 서비스와 이동 경험을 직접 확인하실 수 있습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Write review -->
+    <section class="rw-section">
+      <div class="container rw-layout">
+
+        <!-- Left: writing guide -->
+        <aside class="rw-guide">
+          <h2 class="rw-guide__title"><img src="assets/reviews/review_icon6.png" alt=""> 작성 가이드</h2>
+          <ul class="rw-guide__list">
+            <li class="rw-guide__item">
+              <span class="rw-guide__icon"><img src="assets/reviews/review_icon1.png" alt=""></span>
+              <div>
+                <h3>솔직한 후기를 남겨주세요</h3>
+                <p>장점뿐만 아니라 개선이 필요한 부분도 함께 공유해주시면 더 나은 서비스 제공에 도움이 됩니다.</p>
+              </div>
+            </li>
+            <li class="rw-guide__item">
+              <span class="rw-guide__icon"><img src="assets/reviews/review_icon2.png" alt=""></span>
+              <div>
+                <h3>구체적인 경험을 공유해주세요</h3>
+                <p>이용하신 차량, 서비스, 기사님 응대 등 구체적인 내용을 적어주시면 다른 고객들에게 큰 도움이 됩니다.</p>
+              </div>
+            </li>
+            <li class="rw-guide__item">
+              <span class="rw-guide__icon"><img src="assets/reviews/review_icon3.png" alt=""></span>
+              <div>
+                <h3>사진을 첨부하면 좋아요</h3>
+                <p>차량 내부, 이동 경로, 단체 사진 등 사진을 함께 첨부해주시면 더 생생한 후기가 됩니다.</p>
+              </div>
+            </li>
+          </ul>
+          <div class="rw-guide__notice">
+            <h4><img src="assets/reviews/review_icon4.png" alt=""> 개인정보 보호 안내</h4>
+            <p>작성해주신 후기는 관리자 검토 후 공개됩니다. 개인정보가 포함된 내용은 노출되지 않도록 주의해주세요.</p>
+          </div>
+        </aside>
+
+        <!-- Right: review form -->
+        <form class="rw-form" id="review-write-form" novalidate>
+          <h2 class="rw-form__title">후기 정보 입력</h2>
+          <p class="rw-form__lead">이용하신 서비스와 경험에 대한 상세한 후기를 남겨주세요.</p>
+
+          <div class="rw-row">
+            <div class="rw-field">
+              <label class="rw-label">이용하신 차량 유형 <span class="req">*</span></label>
+              <div class="rw-selectwrap">
+                <select class="rw-input" required>
+                  <option value="" disabled selected>차량 종류를 선택해주세요.</option>
+                  <option>16인승 럭셔리 밴</option>
+                  <option>25인승 미니버스</option>
+                  <option>32인승 우등버스</option>
+                  <option>45인승 대형버스</option>
+                  <option>프리미엄 21인승</option>
+                </select>
+              </div>
+            </div>
+            <div class="rw-field">
+              <label class="rw-label">이용 목적 <span class="opt">(선택)</span></label>
+              <input class="rw-input" type="text" placeholder="예: 워크숍, 단체 여행, 수학 여행 등">
+            </div>
+          </div>
+
+          <div class="rw-field">
+            <label class="rw-label">이용일 <span class="req">*</span></label>
+            <div class="rw-daterange">
+              <div class="rw-datefield">
+                <svg class="rw-cal-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+                <input class="rw-input rw-date rw-date--icon" type="text" placeholder="날짜를 선택해주세요." required>
+              </div>
+              <span class="rw-dash">–</span>
+              <div class="rw-datefield">
+                <input class="rw-input rw-date" type="text" placeholder="종료일 (선택)">
+              </div>
+            </div>
+          </div>
+
+          <div class="rw-field">
+            <label class="rw-label">제목 <span class="req">*</span></label>
+            <input class="rw-input" type="text" maxlength="50" required placeholder="제목을 입력해주세요. (최대 50자)">
+          </div>
+
+          <div class="rw-field">
+            <label class="rw-label">별점 평가 <span class="req">*</span> <span class="rw-hint">(별점을 선택해주세요)</span></label>
+            <div class="rw-stars" data-stars>
+              <button type="button" data-star="1" aria-label="1점">★</button>
+              <button type="button" data-star="2" aria-label="2점">★</button>
+              <button type="button" data-star="3" aria-label="3점">★</button>
+              <button type="button" data-star="4" aria-label="4점">★</button>
+              <button type="button" data-star="5" aria-label="5점">★</button>
+            </div>
+            <input type="hidden" name="rating">
+          </div>
+
+          <div class="rw-field">
+            <label class="rw-label">후기 내용 <span class="req">*</span></label>
+            <div class="rw-textarea">
+              <textarea class="rw-input rw-input--area" maxlength="1000" required placeholder="서비스 이용 경험을 자세히 작성해주세요.&#10;다른 고객님들에게 도움이 되는 정보가 있다면 더욱 좋아요!"></textarea>
+              <span class="rw-count" data-count>0 / 1000</span>
+            </div>
+          </div>
+
+          <div class="rw-field">
+            <label class="rw-label">사진 첨부 <span class="opt">(선택)</span></label>
+            <label class="rw-upload" data-upload-zone>
+              <input type="file" accept="image/png,image/jpeg" multiple hidden data-upload>
+              <span class="rw-upload__icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="M21 16l-5-5L5 20"/></svg>
+              </span>
+              <span class="rw-upload__text">
+                <strong>사진을 드래그하거나 클릭하여 첨부하세요</strong>
+                <em>JPG, PNG 파일 / 최대 10MB / 최대 5장</em>
+              </span>
+            </label>
+            <div class="rw-upload__preview" data-preview></div>
+          </div>
+
+          <div class="rw-actions">
+            <a href="reviews.html" class="rw-btn rw-btn--ghost">취소</a>
+            <button type="submit" class="rw-btn rw-btn--primary">등록하기</button>
+          </div>
+          <p class="rw-status" data-status hidden></p>
+        </form>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer site-footer--mini">
+    <div class="container">
+      <ul class="site-footer__mini-links">
+        <li><a href="about.html">회사소개</a></li>
+        <li><a href="#">이용약관</a></li>
+        <li><a href="#"><strong>개인정보처리방침</strong></a></li>
+        <li><a href="#">자주 묻는 질문</a></li>
+        <li><a href="inquiry.html#qa">고객센터</a></li>
+        <li><a href="#">사이트맵</a></li>
+      </ul>
+      <div class="site-footer__mini-main">
+        <img src="assets/footer_logo.png" alt="부자관광" class="site-footer__logo">
+        <div class="site-footer__mini-meta">
+          <p>(주)부자관광<span class="sep">·</span>대표 <strong>오기영</strong><span class="sep">·</span>사업자등록번호 123-45-67890</p>
+          <p>경기도 평택시 OO로 123, 4층<span class="sep">·</span>대표전화 <strong>1577-0000</strong><span class="sep">·</span>이메일 contact@bujatour.co.kr</p>
+          <p class="copyright">&copy; <span id="year"></span> Buja Tour. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
