@@ -620,6 +620,8 @@ if (form) {
     });
     if (heroTitle && heroCopy[key]) heroTitle.textContent = heroCopy[key].title;
     if (heroLead && heroCopy[key]) heroLead.textContent = heroCopy[key].lead;
+    // Hide top category cards when 1:1 inquiry view is shown
+    document.body.classList.toggle('is-qa-view', key === 'qa');
   }
 
   tabs.forEach(tab => {

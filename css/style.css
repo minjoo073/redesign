@@ -2095,6 +2095,9 @@ body.vehicles-ready .v-driver { visibility: visible; }
 }
 
 /* ----- 1:1 inquiry view (distinct look) ----- */
+/* Hide top category cards when in 1:1 view */
+body.is-qa-view .inquiry-tabs { display: none; }
+
 .inquiry-view--qa { padding: 0; }
 .qa-card {
   background: linear-gradient(180deg, #f4f7fc 0%, #ffffff 60%);
