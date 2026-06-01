@@ -671,5 +671,13 @@ if (form) {
       form.reset();
     });
   });
+
+  // Open view based on URL hash (e.g., inquiry.html#qa from topbar 고객센터)
+  function applyHash() {
+    const key = (location.hash || '').replace('#', '');
+    if (['faq', 'driver', 'b2b', 'qa'].includes(key)) activate(key);
+  }
+  applyHash();
+  window.addEventListener('hashchange', applyHash);
 })();
 
