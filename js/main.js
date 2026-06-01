@@ -585,3 +585,101 @@ if (form) {
   // Render the list twice — animation translates by -50% so it loops seamlessly
   track.innerHTML = [...reviews, ...reviews].map(cardHTML).join('');
 })();
+
+// Inquiry page — category tab switching + FAQ accordion
+(function initInquiryPage() {
+  const tabs = document.querySelectorAll('.inquiry-tab');
+  if (!tabs.length) return;
+
+  const views = document.querySelectorAll('.inquiry-view');
+  const heroTitle = document.querySelector('[data-hero-title]');
+  const heroLead = document.querySelector('[data-hero-lead]');
+
+  const heroCopy = {
+    faq:    { title: '자주 묻는 질문', lead: '자주 묻는 질문을 통해 궁금한 내용을 확인해보세요.' },
+    driver: { title: '버스기사 모집',  lead: '운행 기사님을 모집합니다. 함께할 분의 지원을 기다립니다.' },
+    b2b:    { title: '법인 / 통근버스 문의', lead: '정기 운행, 단체 행사, 법인 견적 등 대량 이용 문의를 남겨주세요.' },
+    qa:     { title: '1:1 문의', lead: '상담원에게 직접 문의를 남겨보세요. 평균 1영업일 이내 답변드려요.' },
+  };
+
+  const sideItems = document.querySelectorAll('.inquiry-side__item');
+  // Sidebar key → top tab key it belongs under (qa stands alone; faq sits under FAQ tab)
+  const sidebarToTab = { faq: 'faq', qa: null };
+
+  function activate(key) {
+    // qa lives outside the top 3 tabs — deactivate all tabs in that case
+    tabs.forEach(t => t.classList.toggle('is-active', key !== 'qa' && t.dataset.tab === key));
+    views.forEach(v => {
+      const match = v.dataset.view === key;
+      if (match) v.removeAttribute('hidden');
+      else v.setAttribute('hidden', '');
+    });
+    sideItems.forEach(item => {
+      const sideKey = item.dataset.side;
+      item.classList.toggle('is-active', sideKey && sideKey === key);
+    });
+    if (heroTitle && heroCopy[key]) heroTitle.textContent = heroCopy[key].title;
+    if (heroLead && heroCopy[key]) heroLead.textContent = heroCopy[key].lead;
+    // Hide top category cards when 1:1 inquiry view is shown
+    document.body.classList.toggle('is-qa-view', key === 'qa');
+  }
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => activate(tab.dataset.tab));
+  });
+
+  // Sidebar items with data-side
+  sideItems.forEach(item => {
+    const key = item.dataset.side;
+    if (!key) return;
+    item.addEventListener('click', e => {
+      e.preventDefault();
+      activate(key);
+      const main = document.querySelector('.inquiry-main');
+      if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-item__q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const open = item.classList.toggle('is-open');
+      const toggle = btn.querySelector('.faq-item__toggle');
+      if (toggle) toggle.textContent = open ? '−' : '+';
+    });
+  });
+
+  // Side CTA button → open 1:1 inquiry view
+  const ctaBtn = document.querySelector('.inquiry-side__cta-btn');
+  if (ctaBtn) {
+    ctaBtn.addEventListener('click', e => {
+      e.preventDefault();
+      activate('qa');
+      const main = document.querySelector('.inquiry-main');
+      if (main) main.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  }
+
+  // Form submit demo
+  document.querySelectorAll('.inquiry-form, .qa-form').forEach(form => {
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const status = form.querySelector('[data-form-status]');
+      if (status) {
+        status.textContent = '문의가 정상적으로 접수되었습니다. 빠르게 답변드리겠습니다.';
+        status.style.color = 'var(--navy)';
+      }
+      form.reset();
+    });
+  });
+
+  // Open view based on URL hash (e.g., inquiry.html#qa from topbar 고객센터)
+  function applyHash() {
+    const key = (location.hash || '').replace('#', '');
+    if (['faq', 'driver', 'b2b', 'qa'].includes(key)) activate(key);
+  }
+  applyHash();
+  window.addEventListener('hashchange', applyHash);
+})();
+
