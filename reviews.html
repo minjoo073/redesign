@@ -37,22 +37,49 @@
   </header>
 
   <main class="sub">
-    <!-- Page title -->
-    <section class="sub-title">
-      <div class="container">
-        <h1 class="sub-title__heading">고객 후기</h1>
+    <!-- Hero banner -->
+    <section class="rv-hero">
+      <img class="rv-hero__img" src="assets/inquiry/hero_img.webp" alt="">
+      <div class="container rv-hero__inner">
+        <div class="rv-hero__text">
+          <h1 class="rv-hero__title">고객 후기</h1>
+          <p class="rv-hero__lead">실제 고객님들의 솔직한 이용 후기를 만나보세요.<br>차량 서비스와 이동 경험을 직접 확인하실 수 있습니다.</p>
+        </div>
       </div>
     </section>
 
-    <!-- Real story slider -->
-    <section class="section" id="review">
-      <div class="container">
-        <p class="section__eyebrow">REAL STORY</p>
-        <h2 class="section__title">이용 후기</h2>
-
-        <div class="story-marquee">
-          <div class="story-marquee__track" data-story-track></div>
+    <!-- Filter / search toolbar -->
+    <section class="rv-toolbar">
+      <div class="container rv-toolbar__inner">
+        <div class="rv-toolbar__filters">
+          <div class="rv-select">
+            <select data-review-sort aria-label="정렬">
+              <option value="recent">최신순</option>
+              <option value="rating">평점 높은순</option>
+            </select>
+          </div>
+          <div class="rv-select">
+            <select data-review-type aria-label="차량 종류">
+              <option value="">차량 종류</option>
+              <option value="16인승">16인승</option>
+              <option value="25인승">25인승</option>
+              <option value="32인승">32인승</option>
+              <option value="45인승">45인승</option>
+              <option value="프리미엄">프리미엄</option>
+            </select>
+          </div>
+          <input class="rv-search" type="search" placeholder="후기 검색 (예: 워크숍, 단체 행사)" data-review-search aria-label="후기 검색">
         </div>
+        <a href="review-write.html" class="rv-write-btn">후기 작성</a>
+      </div>
+    </section>
+
+    <!-- Review list -->
+    <section class="rv-section">
+      <div class="container">
+        <div class="rv-grid" data-review-grid></div>
+        <p class="rv-empty" data-review-empty hidden>검색 결과가 없습니다.</p>
+        <nav class="rv-pagination" data-review-pagination aria-label="페이지"></nav>
       </div>
     </section>
   </main>
