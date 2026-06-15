@@ -95,8 +95,8 @@ if (form) {
   const drivers = [
     {
       name: '김도현 기사님',
-      avatar: 'profile_5-1.png',
-      rectAvatar: 'profil_4-2.png',
+      avatar: 'profile_5-1.webp',
+      rectAvatar: 'profil_4-2.webp',
       stars: 4.8,
       reviews: 82,
       exp: '10년 이상 경력',
@@ -105,8 +105,8 @@ if (form) {
     },
     {
       name: '이상훈 기사님',
-      avatar: 'profile_2-1.png',
-      rectAvatar: 'profile_2-2.png',
+      avatar: 'profile_2-1.webp',
+      rectAvatar: 'profile_2-2.webp',
       stars: 4.7,
       reviews: 64,
       exp: '6년 이상 경력',
@@ -115,8 +115,8 @@ if (form) {
     },
     {
       name: '박정우 기사님',
-      avatar: 'profile_1-1.png',
-      rectAvatar: 'profil_3-2.png',
+      avatar: 'profile_1-1.webp',
+      rectAvatar: 'profil_3-2.webp',
       stars: 4.8,
       reviews: 95,
       exp: '8년 이상 경력',
@@ -125,8 +125,8 @@ if (form) {
     },
     {
       name: '최민석 기사님',
-      avatar: 'frofile_4-1.png',
-      rectAvatar: 'profil_4-2.png',
+      avatar: 'frofile_4-1.webp',
+      rectAvatar: 'profil_4-2.webp',
       stars: 4.9,
       reviews: 112,
       exp: '12년 이상 경력',
@@ -135,8 +135,8 @@ if (form) {
     },
     {
       name: '정한별 기사님',
-      avatar: 'profile_1-1.png',
-      rectAvatar: 'profile_1-2.png',
+      avatar: 'profile_1-1.webp',
+      rectAvatar: 'profile_1-2.webp',
       stars: 4.8,
       reviews: 73,
       exp: '9년 이상 경력',
@@ -391,7 +391,7 @@ if (form) {
       car: 'car_16.webp',
       seat: 'detail_16.webp',
       driver: {
-        name: '김도현 기사님', photo: 'profile_1-2.png',
+        name: '김도현 기사님', photo: 'profile_1-2.webp',
         stars: 4.8, reviewCount: 82,
         exp: '10년 이상 경력',
         desc: '편안하고 프라이빗한 이동,<br>고객 만족도가 높은 베스트 기사님입니다.',
@@ -407,7 +407,7 @@ if (form) {
       car: 'car_25.webp',
       seat: 'detail_25.webp',
       driver: {
-        name: '이상훈 기사님', photo: 'profile_2-2.png',
+        name: '이상훈 기사님', photo: 'profile_2-2.webp',
         stars: 4.7, reviewCount: 64,
         exp: '6년 이상 경력',
         desc: '효율적인 단체 이동,<br>친절한 응대로 만족도가 높은 기사님입니다.',
@@ -423,7 +423,7 @@ if (form) {
       car: 'car_32.webp',
       seat: 'detail_32.webp',
       driver: {
-        name: '박정우 기사님', photo: 'profil_3-2.png',
+        name: '박정우 기사님', photo: 'profil_3-2.webp',
         stars: 4.8, reviewCount: 98,
         exp: '8년 이상 경력',
         desc: '안전 운행은 기본, 친절함은 덤!<br>고객 만족도가 높은 베스트 기사님입니다.',
@@ -439,7 +439,7 @@ if (form) {
       car: 'car_45.webp',
       seat: 'detail_45.webp',
       driver: {
-        name: '최민석 기사님', photo: 'profil_4-2.png',
+        name: '최민석 기사님', photo: 'profil_4-2.webp',
         stars: 4.9, reviewCount: 112,
         exp: '12년 이상 경력',
         desc: '대규모 단체 이동에 강한<br>베테랑 기사님입니다.',
@@ -455,7 +455,7 @@ if (form) {
       car: 'car_pr.webp',
       seat: 'detail_32-1.webp',
       driver: {
-        name: '정한별 기사님', photo: 'profile_1-2.png',
+        name: '정한별 기사님', photo: 'profile_1-2.webp',
         stars: 4.9, reviewCount: 73,
         exp: '9년 이상 경력',
         desc: '프리미엄 서비스에 특화된<br>품격 있는 운행을 제공합니다.',
@@ -521,7 +521,7 @@ if (form) {
     // 버스 둘러보기 gallery — 3 images per category (sub_{num}_01..03)
     const num = galleryNum[key] || key;
     galleryImgs.forEach((img, i) => {
-      img.src = `assets/reviews/sub_${num}_0${i + 1}.png`;
+      img.src = `assets/reviews/sub_${num}_0${i + 1}.webp`;
     });
 
     // Driver
@@ -834,12 +834,12 @@ if (form) {
 
   // Vehicle pool — key drives the 차량 종류 filter, img is the card thumbnail.
   const VEHICLES = [
-    { type: '45인승 우등버스',   key: '45인승',  img: 'assets/reviews/review_01.png' },
-    { type: '25인승 미니버스',   key: '25인승',  img: 'assets/reviews/review_03.png' },
-    { type: '16인승 프리미엄 밴', key: '16인승',  img: 'assets/reviews/review_05.png' },
-    { type: '32인승 중형버스',   key: '32인승',  img: 'assets/reviews/review_02.png' },
-    { type: '프리미엄 리무진버스', key: '프리미엄', img: 'assets/reviews/review_06.png' },
-    { type: '45인승 우등버스',   key: '45인승',  img: 'assets/reviews/review_04.png' },
+    { type: '45인승 우등버스',   key: '45인승',  img: 'assets/reviews/review_01.webp' },
+    { type: '25인승 미니버스',   key: '25인승',  img: 'assets/reviews/review_03.webp' },
+    { type: '16인승 프리미엄 밴', key: '16인승',  img: 'assets/reviews/review_05.webp' },
+    { type: '32인승 중형버스',   key: '32인승',  img: 'assets/reviews/review_02.webp' },
+    { type: '프리미엄 리무진버스', key: '프리미엄', img: 'assets/reviews/review_06.webp' },
+    { type: '45인승 우등버스',   key: '45인승',  img: 'assets/reviews/review_04.webp' },
   ];
   const STORIES = [
     { purpose: '회사 워크숍', title: '편안하고 안전한 워크숍 이동이었어요!', rating: 5.0,
